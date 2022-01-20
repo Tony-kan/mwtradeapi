@@ -1,0 +1,1 @@
+web: java -DServer.port=$PORT -jar target/Mw-Trade_Web_Api-0.0.1-SNAPSHOT.jar
