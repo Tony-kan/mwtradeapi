@@ -25,9 +25,9 @@ public class Cart_Item {
     @Temporal(TemporalType.DATE)
     private Date modified_At;
 
-@ManyToOne
-@JoinColumn(name="Customer_id")
-private Customer customer;
+//@ManyToOne
+//@JoinColumn(name="Customer_id")
+//private Customer customer;
 
 
 @ManyToOne
@@ -77,13 +77,7 @@ private Customer customer;
         this.product = product;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     @Override
     public String toString() {

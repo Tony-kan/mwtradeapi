@@ -33,6 +33,11 @@ public class ProductService {
         return productOptional;
 
     }
+    public List<Product> getViewProductByCategory(Long categoryId) {
+
+        List<Product> productOptional = productRepository.findbyCategoryId(categoryId);
+        return  productOptional;
+    }
 
     public Optional<Product> getSearchProduct(String productName) {
         Optional <Product> productOptional=productRepository.findByName(productName);
@@ -62,10 +67,10 @@ public class ProductService {
             product.setIn_Stock(in_stock);
         }
 
-        if(discountPercent!=null &&
-        !Objects.equals(product.getDiscountPercent(),discountPercent)){
-            product.setDiscountPercent(discountPercent);
-        }
+//        if(discountPercent!=null &&
+//        !Objects.equals(product.getDiscountPercent(),discountPercent)){
+//            product.setDiscountPercent(discountPercent);
+//        }
 
         if(productPrice!=0.0 &&
         !Objects.equals(product.getProductPrice(),productPrice)){
@@ -83,5 +88,6 @@ public class ProductService {
         }
         productRepository.deleteById(productId);
     }
+
 
 }

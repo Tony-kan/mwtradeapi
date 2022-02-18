@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping(path="/v3/MW_Trade/Home")
 @Api("Product")
@@ -39,30 +40,35 @@ final private ProductService productService;
             }
     )
     @GetMapping
-    public ResponseEntity<List<Product>> listProducts(){
-        List<Product> products =productService.getAllProducts();
-        products.forEach(product -> {
-            product.add(linkTo(methodOn(ProductController.class).listProducts()).withSelfRel());
+    public List<Product> listProducts(){
 
-            Long productId= product.getProductId();
-            product.add(linkTo(methodOn(ProductController.class).viewProduct(productId)).withRel("View-Product"));
 
-           product.add(linkTo(methodOn(ProductController.class).searchProduct(product.getProductName())).withRel("Search-Product-By-Name"));
-
-            product.add(linkTo(methodOn(ProductController.class).addProduct(product)).withRel("Add-New-Product"));
-
-            product.add(linkTo(methodOn(ProductController.class).updateProduct(product.getProductId(),
-                    product.getIn_Stock(),
-                    product.getDiscountPercent(),
-                    product.getProductPrice()
-            )).withRel("update-Product"));
-
-            product.add(linkTo(methodOn(ProductController.class).removeProduct(productId)).withRel("delete-Product"));
-
-        });
-
-        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        return productService.getAllProducts();
     }
+//    public ResponseEntity<List<Product>> listProducts(){
+//        List<Product> products =productService.getAllProducts();
+//        products.forEach(product -> {
+//            product.add(linkTo(methodOn(ProductController.class).listProducts()).withSelfRel());
+//
+//            Long productId= product.getProductId();
+//            product.add(linkTo(methodOn(ProductController.class).viewProduct(productId)).withRel("View-Product"));
+//
+//           product.add(linkTo(methodOn(ProductController.class).searchProduct(product.getProductName())).withRel("Search-Product-By-Name"));
+//
+//            product.add(linkTo(methodOn(ProductController.class).addProduct(product)).withRel("Add-New-Product"));
+//
+//            product.add(linkTo(methodOn(ProductController.class).updateProduct(product.getProductId(),
+//                    product.getIn_Stock(),
+//                    product.getDiscountPercent(),
+//                    product.getProductPrice()
+//            )).withRel("update-Product"));
+//
+//            product.add(linkTo(methodOn(ProductController.class).removeProduct(productId)).withRel("delete-Product"));
+//
+//        });
+//
+//        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+//    }
 
     @ApiOperation("View A Product")
     @ApiResponses(
@@ -74,29 +80,38 @@ final private ProductService productService;
             }
     )
         @GetMapping("/{productId}")
-    public ResponseEntity<Optional<Product>> viewProduct(@PathVariable("productId") Long productId){
+    public Optional<Product> viewProduct(@PathVariable("productId") Long productId){
 
-           Optional<Product> productOptional = productService.getViewProduct(productId);
+        return productService.getViewProduct(productId);
+    }
+    @GetMapping("/category/{categoryId}")
+    public List<Product> viewProductByCategory(@PathVariable("categoryId") Long categoryId){
 
-            productOptional.map(product -> {
-
-                product.add(linkTo(methodOn(ProductController.class).viewProduct(productId)).withSelfRel());
-
-                product.add(linkTo(methodOn(ProductController.class).listProducts()).withRel("List-All-Products"));
-
-                product.add(linkTo(methodOn(ProductController.class).updateProduct(productId,
-                        product.getIn_Stock(),
-                        product.getDiscountPercent(),
-                        product.getProductPrice())).withRel("Update-Product"));
-
-                product.add(linkTo(methodOn(ProductController.class).removeProduct(productId)).withRel("Delete-Product"));
-
-                return ResponseEntity.ok(product);
-
-            });
-
-    return new ResponseEntity<Optional<Product>>(productOptional,HttpStatus.OK);
-        }
+        return productService.getViewProductByCategory(categoryId);
+    }
+//    public ResponseEntity<Optional<Product>> viewProduct(@PathVariable("productId") Long productId){
+//
+//           Optional<Product> productOptional = productService.getViewProduct(productId);
+//
+//            productOptional.map(product -> {
+//
+//                product.add(linkTo(methodOn(ProductController.class).viewProduct(productId)).withSelfRel());
+//
+//                product.add(linkTo(methodOn(ProductController.class).listProducts()).withRel("List-All-Products"));
+//
+//                product.add(linkTo(methodOn(ProductController.class).updateProduct(productId,
+//                        product.getIn_Stock(),
+//                        product.getDiscountPercent(),
+//                        product.getProductPrice())).withRel("Update-Product"));
+//
+//                product.add(linkTo(methodOn(ProductController.class).removeProduct(productId)).withRel("Delete-Product"));
+//
+//                return ResponseEntity.ok(product);
+//
+//            });
+//
+//    return new ResponseEntity<Optional<Product>>(productOptional,HttpStatus.OK);
+//        }
 
     @ApiOperation("Search for A Product")
     @ApiResponses(
@@ -108,29 +123,33 @@ final private ProductService productService;
             }
     )
         @GetMapping("/Search/{productName}")
-    public ResponseEntity<Optional<Product>> searchProduct(@PathVariable("productName") String productName){
+    public Optional<Product> searchProduct(@PathVariable("productName") String productName){
 
-            Optional<Product> productOptional = productService.getSearchProduct(productName);
-
-            productOptional.map(product -> {
-
-                product.add(linkTo(methodOn(ProductController.class).searchProduct(productName)).withSelfRel());
-
-                product.add(linkTo(methodOn(ProductController.class).listProducts()).withRel("List-All-Products"));
-
-                product.add(linkTo(methodOn(ProductController.class).updateProduct(product.getProductId(),
-                        product.getIn_Stock(),
-                        product.getDiscountPercent(),
-                        product.getProductPrice())).withRel("Update-Product"));
-
-                product.add(linkTo(methodOn(ProductController.class).removeProduct(product.getProductId())).withRel("Delete-Product"));
-
-                return ResponseEntity.ok(product);
-
-            });
-
-            return new ResponseEntity<Optional<Product>>(productOptional,HttpStatus.OK);
-        }
+        return productService.getSearchProduct(productName);
+    }
+//    public ResponseEntity<Optional<Product>> searchProduct(@PathVariable("productName") String productName){
+//
+//            Optional<Product> productOptional = productService.getSearchProduct(productName);
+//
+//            productOptional.map(product -> {
+//
+//                product.add(linkTo(methodOn(ProductController.class).searchProduct(productName)).withSelfRel());
+//
+//                product.add(linkTo(methodOn(ProductController.class).listProducts()).withRel("List-All-Products"));
+//
+//                product.add(linkTo(methodOn(ProductController.class).updateProduct(product.getProductId(),
+//                        product.getIn_Stock(),
+//                        product.getDiscountPercent(),
+//                        product.getProductPrice())).withRel("Update-Product"));
+//
+//                product.add(linkTo(methodOn(ProductController.class).removeProduct(product.getProductId())).withRel("Delete-Product"));
+//
+//                return ResponseEntity.ok(product);
+//
+//            });
+//
+//            return new ResponseEntity<Optional<Product>>(productOptional,HttpStatus.OK);
+//        }
 
 
         @ApiOperation("Add A New Product ")
@@ -142,23 +161,35 @@ final private ProductService productService;
 
         @ApiOperation("Update  Product Details")
     @PutMapping(path="/ProductUpdate/{productId}")
-    public Object updateProduct (
-            @PathVariable("productId") Long productId,
-            @RequestParam(required = false) Integer in_Stock,
-            @RequestParam(required = false) Integer discountPercent,
-            @RequestParam(required = false) float productPrice
-    ){
-        productService.updateProductInfo(productId,in_Stock,discountPercent,productPrice);
-        return null;
-    }
+        public void updateProduct (
+                @PathVariable("productId") Long productId,
+                @RequestParam(required = false) Integer in_Stock,
+                @RequestParam(required = false) Integer discountPercent,
+                @RequestParam(required = false) float productPrice
+        ){
+            productService.updateProductInfo(productId,in_Stock,discountPercent,productPrice);
+        }
+//    public Object updateProduct (
+//            @PathVariable("productId") Long productId,
+//            @RequestParam(required = false) Integer in_Stock,
+//            @RequestParam(required = false) Integer discountPercent,
+//            @RequestParam(required = false) float productPrice
+//    ){
+//        productService.updateProductInfo(productId,in_Stock,discountPercent,productPrice);
+//        return null;
+//    }
 
     @ApiOperation("Remove A Product from Online")
     @DeleteMapping("/ProductRemove/{productId}")
-    public Object removeProduct(@PathVariable("productId") Long productId){
+    public void removeProduct(@PathVariable("productId") Long productId){
 
         productService.deleteproduct(productId);
-
-        return null;
     }
+//    public Object removeProduct(@PathVariable("productId") Long productId){
+//
+//        productService.deleteproduct(productId);
+//
+//        return null;
+//    }
 
 }

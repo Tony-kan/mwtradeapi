@@ -14,7 +14,7 @@ public class ProductConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(ProductRepository repository,
-                                        ProductCategoryRepository productCategoryRepository,
+//                                        ProductCategoryRepository productCategoryRepository,
                                         CustomerRepository customerRepository,
                                         BrandRepository brandRepository,
                                         ShoppingCartRepository shoppingCartRepository,
@@ -23,120 +23,183 @@ public class ProductConfig {
 
             /*adding products in the database*/
 
-            Product orange = new Product(
-                    "Orange",
-                    "Citrus Fruit",
-                    "Fresh sourly acidic fruit which provides water ,nutrients and minerals",
-                    78,
+            Product shoe1 = new Product(
+                    "Canvas Sneaker",
+                    "Wonder Nation Little Girl & Big Girl Casual Canvas Sneaker,size 13-6",
+                    40,
                     20,
-                    5.4f,
-                    23.4f,
-                    "DailyFruits",
-                    "Mmage",
+                    15000.00f,
+                    "Shoes",
+                    "Assets/images/Popular_Products/shoes3/shoe3_front.jpeg",
                     "bmage",
                     "smage",
+                    "tmage",
                     "butmage",
-                //    "Fruit",
-                    7,
+                    "shoe",
+                    "Sneaker",
+                    "Canvas",
+                    8L,
                     new Date(),
                     new Date()
 
             );
-            Product mango = new Product(
-                    "Mango",
-                    "sweet Fruit",
-                    "Fresh sweet a fruit which provides water ,nutrients and minerals",
-                    100,
-                    20,
-                    2f,
-                    25.1f,
-                    "DailyFruits",
-                    "Mmage",
-                    "bmage",
-                    "smage",
-                    "butmage",
-                   // "Fruit",
-                    5,
-                    new Date(),
-                    new Date()
-
-            );
-            Product laptop = new Product(
-                    "Laptop21",
-                    "elcetronic device",
-                    "amazing device to create with",
+            Product bag1 = new Product(
+                    "Travel Rio",
+                    "U.S.Traveler Rio 2-oiece Carry-on Luggage set",
                     15,
+                    20,
+                    89000.50f,
+                    "Bags",
+                    "Assets/images/All Products/Fashion/Bags/bag8/Travel Rio carryon luggage display.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag8/Travel Rio carryon luggage inside.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag8/Travel Rio carryon luggage side.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag8/Travel Rio carryon luggage top.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag8/Travel Rio carryon luggage bottom.jpeg",
+                    "bag",
+                    "Travel",
+                    "luggage",
+                    6L,
+                    new Date(),
+                    new Date()
+
+            );
+            Product bag2 = new Product(
+                    "Vera Bradley",
+                    "Vera Bradley Womens Recylced Cotton Tripple Zip Hipster Crossbody Bag Butterfly By",
+                    70,
                     34,
-                    4.5f,
-                    235.5f,
-                    "Mac",
-                    "Macmmage",
-                    "Macbmage",
-                    "Macsmage",
-                    "Macbutmage",
-                    //"Electron",
-                    7,
+                    17000f,
+                    "Bags",
+                    "Assets/images/All Products/Fashion/Bags/bag4/Hipster crossbody handbag display.jpeg",
+                    "",
+                    "Assets/images/All Products/Fashion/Bags/bag4/Hipster crossbody handbag  sides.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag4/Hipster crossbody handbag  top.jpeg",
+                    "Assets/images/All Products/Fashion/Bags/bag4/Hipster crossbody handbag  far.jpeg",
+                    "women",
+                    "bag",
+                    "crossbody",
+                    6L,
+                    new Date(),
+                    new Date()
+
+            );
+            Product earbud1 = new Product(
+                    "UrbanX",
+                    "Wireless earbud Bluetooth 5.0 HeadPhones with digital LED Display Charging Case Stereo Mini Earphones n Ear Headset Waterproof for Tecno Spark 6 Air",
+                    23,
+                    34,
+                    13000f,
+                    "Sound",
+                    "Assets/images/All Products/Electronics/sounds/digital LED wireless earbuds.png",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "urbanx",
+                    "earbud",
+                    "wireless",
+                    5l,
+                    new Date(),
+                    new Date()
+
+            );
+            Product headphone1 = new Product(
+                    "COWIN E7 earbuds",
+                    "COWIN E7 Active Noise Cancelling Heaadphones Bluetooth Headphones with Mic Deep Bass Wirelesss HeadPhones Over ear(black)",
+                    47,
+                    34,
+                    8500f,
+                    "Sound",
+                    "Assets/images/All Products/Electronics/sounds/COWIN E7 headphones.jpeg",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "headphone",
+                    "cowin",
+                    "earbud",
+                    5L,
+                    new Date(),
+                    new Date()
+
+            );
+            Product p1 = new Product(
+                    "",
+                    "",
+                    0,
+                    0,
+                    0f,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    5L,
                     new Date(),
                     new Date()
 
             );
 
             repository.saveAll(
-                    List.of(orange, mango,laptop)
+                    List.of(shoe1,bag1,bag2,earbud1,headphone1)
             );
 
             /*adding Categories in the database*/
 
-            ProductCategory VideoGamesConsoles = new ProductCategory(
-                    1l,
-                    "Video Games",
-                    "vidGameImage",
-                    "Category for  Video games Consoles and related items",
-                    new Date(),
-                    new Date()
-            );
-            ProductCategory Computers = new ProductCategory(
-                    2l,
-                    "Computers",
-                    "ComImage",
-                    "Category for Laptops,Desktops,Computer Hardware",
-                    new Date(),
-                    new Date()
-            );
-            ProductCategory Clothes = new ProductCategory(
-                    3l,
-                    "Fashion",
-                    "ClothImage",
-                    "Category for all types of clothes",
-                    new Date(),
-                    new Date()
-            );
-            ProductCategory Kitchen = new ProductCategory(
-                    4l,
-                    "Kitchen",
-                    "KitchImage",
-                    "Category for kitchen equipments",
-                    new Date(),
-                    new Date()
-            );
-            ProductCategory Furniture = new ProductCategory(
-                    5l,
-                    "Furniture",
-                    "FurniImage",
-                    "Category for furnitures",
-                    new Date(),
-                    new Date()
-            );
-            ProductCategory Food = new ProductCategory(
-                    6l,
-                    "Food",
-                    "foodImage",
-                    "Category for food items",
-                    new Date(),
-                    new Date()
-            );
-            productCategoryRepository.saveAll(
-                    List.of(Clothes,Computers,Food,Furniture,Kitchen,VideoGamesConsoles));
+//            ProductCategory VideoGamesConsoles = new ProductCategory(
+//                    1l,
+//                    "Video Games",
+//                    "vidGameImage",
+//                    "Category for  Video games Consoles and related items",
+//                    new Date(),
+//                    new Date()
+//            );
+//            ProductCategory Computers = new ProductCategory(
+//                    2l,
+//                    "Computers",
+//                    "ComImage",
+//                    "Category for Laptops,Desktops,Computer Hardware",
+//                    new Date(),
+//                    new Date()
+//            );
+//            ProductCategory Clothes = new ProductCategory(
+//                    3l,
+//                    "Fashion",
+//                    "ClothImage",
+//                    "Category for all types of clothes",
+//                    new Date(),
+//                    new Date()
+//            );
+//            ProductCategory Kitchen = new ProductCategory(
+//                    4l,
+//                    "Kitchen",
+//                    "KitchImage",
+//                    "Category for kitchen equipments",
+//                    new Date(),
+//                    new Date()
+//            );
+//            ProductCategory Furniture = new ProductCategory(
+//                    5l,
+//                    "Furniture",
+//                    "FurniImage",
+//                    "Category for furnitures",
+//                    new Date(),
+//                    new Date()
+//            );
+//            ProductCategory Food = new ProductCategory(
+//                    6l,
+//                    "Food",
+//                    "foodImage",
+//                    "Category for food items",
+//                    new Date(),
+//                    new Date()
+//            );
+//            productCategoryRepository.saveAll(
+//                    List.of(Clothes,Computers,Food,Furniture,Kitchen,VideoGamesConsoles));
 
             /*adding Customers in the database*/
 
@@ -144,14 +207,7 @@ public class ProductConfig {
                     "Tony ",
                     "Kanyamauka",
                     "Tk@gmail.com",
-                    "tkay_s",
                     "00000",
-                    "0996008328",
-                    "bangwe 8g",
-                    "ntchissi chayamba",
-                    "Central region",
-                    "Ntchis",
-                    "1111",
                     new Date(),
                     new Date()
             );
@@ -159,14 +215,7 @@ public class ProductConfig {
                     "james ",
                     "john",
                     "JJ@gmail.com",
-                    "jezo",
                     "00000",
-                    "0883400832",
-                    "nambuma",
-                    "kachulu",
-                    "Central region",
-                    "l city",
-                    "8881",
                     new Date(),
                     new Date()
             );

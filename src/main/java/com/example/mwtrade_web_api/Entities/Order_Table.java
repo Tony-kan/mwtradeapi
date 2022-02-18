@@ -22,9 +22,9 @@ public class Order_Table {
 
     private String isDelivered;
 
-    @ManyToOne
-    @JoinColumn(name="Customer_id")
-    private Customer buyer;
+//    @ManyToOne
+//    @JoinColumn(name="Customer_id")
+//    private Customer buyer;
 
     @OneToOne(mappedBy = "orderT")
     private Order_Details order_details;

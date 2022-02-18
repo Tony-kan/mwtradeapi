@@ -40,8 +40,8 @@ public class CartService {
         Cart_Item cart_item = new Cart_Item();
         cart_item.setQuantity(quantity);
 
-       cart_item.setProduct(productRepository.findProductByPId(productId));
-      cart_item.setCustomer(customerRepository.findCustomerByCId(customerId));
+//       cart_item.setProduct(productRepository.findProductByPId(productId));
+//      cart_item.setCustomer(customerRepository.findCustomerByCId(customerId));
         shoppingCart.getItems().add(cart_item);
         shoppingCart.setDate(new Date());
         shoppingCartRepository.save(shoppingCart);

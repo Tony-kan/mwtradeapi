@@ -2,7 +2,9 @@ package com.example.mwtrade_web_api.Entities;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Entity
 @Table
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product extends RepresentationModel <Product> {
@@ -34,14 +38,8 @@ public class Product extends RepresentationModel <Product> {
     @ApiModelProperty("The short Description of the Product")
     private String shortDescription;
 
-    @ApiModelProperty("Full Description of the Product")
-    private String fullDescription;
-
     @ApiModelProperty("Quantity of Product Available in Stock")
     private Integer in_Stock;
-
-    @ApiModelProperty("Discount percentage for Purchase")
-    private Integer discountPercent;
 
     @ApiModelProperty("Price of the Product")
     private float productPrice;
@@ -50,7 +48,7 @@ public class Product extends RepresentationModel <Product> {
     private float avgRating;
 
     @ApiModelProperty("Brand Name of the Product")
-    private String brandName;
+    private String categoryName;
 
     @ApiModelProperty("Main image of the Product ")
     private String mainImage;
@@ -61,11 +59,23 @@ public class Product extends RepresentationModel <Product> {
     @ApiModelProperty("Side Image of the Product")
     private String sideImage;
 
+    @ApiModelProperty("Top image of the Product")
+    private String topImage;
+
     @ApiModelProperty("Buttom image of the Product")
     private String bottomImage;
 
-    @ApiModelProperty("review Count")
-    private Integer reviewCount;
+    @ApiModelProperty("Tag 1 of the Product")
+    private String tag1;
+
+    @ApiModelProperty("Tag 2 of the Product")
+    private String tag2;
+
+    @ApiModelProperty("Tag 3 of the Product")
+    private String tag3;
+
+    @ApiModelProperty("categoryId")
+    private Long categoryId;
 
     @ApiModelProperty("The date when the product is uploaded online")
     @Temporal(TemporalType.DATE)
@@ -80,9 +90,9 @@ public class Product extends RepresentationModel <Product> {
     @JoinColumn(name="Brand_id")
     private Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name="Category_id")
-    private ProductCategory productCategory;
+//    @ManyToOne
+//    @JoinColumn(name="Category_id")
+//    private ProductCategory productCategory;
 
     @ManyToMany(mappedBy = "products")
     private List<Seller> sellers;
@@ -95,154 +105,28 @@ public class Product extends RepresentationModel <Product> {
     }
 
     public Product( String productName, String shortDescription,
-                   String fullDescription, Integer in_Stock, Integer discountPercent,
-                   float avgRating,float productPrice, String brandName, String mainImage,
-                   String backImage, String sideImage, String bottomImage,
-                   Integer reviewCount, Date created_At, Date modified_at) {
+                    Integer in_Stock,
+                   float avgRating,float productPrice, String categoryName, String mainImage,
+                   String backImage, String sideImage,String topImage, String bottomImage,
+                   String tag1,String tag2,String tag3,
+                   Long categoryId, Date created_At, Date modified_at) {
 
-        this.productId = productId;
         this.productName = productName;
         this.shortDescription = shortDescription;
-        this.fullDescription = fullDescription;
         this.in_Stock = in_Stock;
-        this.discountPercent = discountPercent;
         this.avgRating = avgRating;
         this.productPrice=productPrice;
-        this.brandName = brandName;
+        this.categoryName = categoryName;
         this.mainImage = mainImage;
         this.backImage = backImage;
         this.sideImage = sideImage;
+        this.topImage=topImage;
         this.bottomImage = bottomImage;
-        this.reviewCount = reviewCount;
+        this.tag1=tag1;
+        this.tag2=tag2;
+        this.tag3=tag3;
+        this.categoryId=categoryId;
         this.created_At = created_At;
-        this.modified_at = modified_at;
-    }
-
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-    public float getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(float productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getFullDescription() {
-        return fullDescription;
-    }
-
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
-    public Integer getIn_Stock() {
-        return in_Stock;
-    }
-
-    public void setIn_Stock(Integer in_Stock) {
-        this.in_Stock = in_Stock;
-    }
-
-    public Integer getDiscountPercent() {
-        return discountPercent;
-    }
-
-    public void setDiscountPercent(Integer discountPercent) {
-        this.discountPercent = discountPercent;
-    }
-
-    public float getAvgRating() {
-        return avgRating;
-    }
-
-    public void setAvgRating(float avgRating) {
-        this.avgRating = avgRating;
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
-    }
-
-    public String getBackImage() {
-        return backImage;
-    }
-
-    public void setBackImage(String backImage) {
-        this.backImage = backImage;
-    }
-
-    public String getSideImage() {
-        return sideImage;
-    }
-
-    public void setSideImage(String sideImage) {
-        this.sideImage = sideImage;
-    }
-
-    public String getBottomImage() {
-        return bottomImage;
-    }
-
-    public void setBottomImage(String bottomImage) {
-        this.bottomImage = bottomImage;
-    }
-
-    public Integer getReviewCount() {
-        return reviewCount;
-    }
-
-    public void setReviewCount(Integer reviewCount) {
-        this.reviewCount = reviewCount;
-    }
-
-    public Date getCreated_At() {
-        return created_At;
-    }
-
-    public void setCreated_At(Date created_At) {
-        this.created_At = created_At;
-    }
-
-    public Date getModified_at() {
-        return modified_at;
-    }
-
-    public void setModified_at(Date modified_at) {
         this.modified_at = modified_at;
     }
 
@@ -252,11 +136,10 @@ public class Product extends RepresentationModel <Product> {
                 "productName='" + productName + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", in_Stock=" + in_Stock +
-                ", discountPercent=" + discountPercent +
                 ", avgRating=" + avgRating +
-                ", brandName='" + brandName + '\'' +
+                ", brandName='" + categoryName + '\'' +
                 ", mainImage='" + mainImage + '\'' +
-                ", reviewCount=" + reviewCount +
+                ", reviewCount=" + categoryId +
                 '}';
     }
 

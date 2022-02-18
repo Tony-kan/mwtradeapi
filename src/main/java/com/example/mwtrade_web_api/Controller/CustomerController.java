@@ -18,6 +18,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path="/v3/MW_Trade/Home/profile/customer")
 @Api("Customer")
@@ -40,34 +41,39 @@ public class CustomerController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<Customer>> viewAllCustomers(){
-        List<Customer> customers = customerService.getAllCustomersDetails();
+    public List<Customer> viewAllCustomers(){
 
-        customers.forEach(customer -> {
-           customer.add(linkTo(methodOn(CustomerController.class).viewAllCustomers()).withSelfRel());
-
-            Long customerId= customer.getCustomerId();
-            customer.add(linkTo(methodOn(CustomerController.class).viewYourProfile(customerId)).withRel("View-Your-Profile"));
-
-            customer.add(linkTo(methodOn(CustomerController.class).removeCustomer(customerId)).withRel("delete-customer"));
-
-           customer.add(linkTo(methodOn(CustomerController.class).newCustomer(customer)).withRel("New-Customer"));
-
-            customer.add(linkTo(methodOn(CustomerController.class).updateCustomerDetails(customer.getCustomerId(),
-                    customer.getEmail(),
-                    customer.getUserName(),
-                    customer.getPassWord(),
-                    customer.getMobileNo(),
-                    customer.getAddress1(),
-                    customer.getAddress2(),
-                    customer.getRegion(),
-                    customer.getDistrict(),
-                    customer.getPostalCode())).withRel("update-Your-profile"));
-        });
-
-
-        return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+        return  customerService.getAllCustomersDetails();
     }
+
+//    public ResponseEntity<List<Customer>> viewAllCustomers(){
+//        List<Customer> customers = customerService.getAllCustomersDetails();
+//
+//        customers.forEach(customer -> {
+//           customer.add(linkTo(methodOn(CustomerController.class).viewAllCustomers()).withSelfRel());
+//
+//            Long customerId= customer.getCustomerId();
+//            customer.add(linkTo(methodOn(CustomerController.class).viewYourProfile(customerId)).withRel("View-Your-Profile"));
+//
+//            customer.add(linkTo(methodOn(CustomerController.class).removeCustomer(customerId)).withRel("delete-customer"));
+//
+//           customer.add(linkTo(methodOn(CustomerController.class).newCustomer(customer)).withRel("New-Customer"));
+//
+//            customer.add(linkTo(methodOn(CustomerController.class).updateCustomerDetails(customer.getCustomerId(),
+//                    customer.getEmail(),
+//                    customer.getUserName(),
+//                    customer.getPassWord(),
+//                    customer.getMobileNo(),
+//                    customer.getAddress1(),
+//                    customer.getAddress2(),
+//                    customer.getRegion(),
+//                    customer.getDistrict(),
+//                    customer.getPostalCode())).withRel("update-Your-profile"));
+//        });
+//
+//
+//        return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+//    }
 
     @ApiOperation("View A your Profile ")
     @ApiResponses(
@@ -79,48 +85,56 @@ public class CustomerController {
             }
     )
    @GetMapping(path="/{customerId}")
-   public ResponseEntity<Optional<Customer>> viewYourProfile(@PathVariable("customerId") Long customerId) {
+    public Optional<Customer> viewYourProfile(@PathVariable("customerId") Long customerId) {
 
-     Optional<Customer> customerOptional =customerService.getCustomerDetails(customerId);
-
-       customerOptional.map(customer -> {
-           customer.add(linkTo(methodOn(CustomerController.class).viewYourProfile(customerId)).withSelfRel());
-
-           customer.add(linkTo(methodOn(CustomerController.class).viewAllCustomers()).withRel("View-All-Customers"));
-
-           customer.add(linkTo(methodOn(CustomerController.class).updateCustomerDetails(customerId,
-                   customer.getEmail(),
-                   customer.getUserName(),
-                   customer.getPassWord(),
-                   customer.getMobileNo(),
-                   customer.getAddress1(),
-                   customer.getAddress2(),
-                   customer.getRegion(),
-                   customer.getDistrict(),
-                   customer.getPostalCode())).withRel("Update-Your-profile"));
-
-           customer.add(linkTo(methodOn(CustomerController.class).removeCustomer(customerId)).withRel("delete-Customers"));
-
-           return ResponseEntity.ok(customer);
-
-       });
-
-        return new ResponseEntity<Optional<Customer>>(customerOptional,HttpStatus.OK);
-   }
+        return customerService.getCustomerDetails(customerId);
+    }
+//   public ResponseEntity<Optional<Customer>> viewYourProfile(@PathVariable("customerId") Long customerId) {
+//
+//     Optional<Customer> customerOptional =customerService.getCustomerDetails(customerId);
+//
+//       customerOptional.map(customer -> {
+//           customer.add(linkTo(methodOn(CustomerController.class).viewYourProfile(customerId)).withSelfRel());
+//
+//           customer.add(linkTo(methodOn(CustomerController.class).viewAllCustomers()).withRel("View-All-Customers"));
+//
+//           customer.add(linkTo(methodOn(CustomerController.class).updateCustomerDetails(customerId,
+//                   customer.getEmail(),
+//                   customer.getUserName(),
+//                   customer.getPassWord(),
+//                   customer.getMobileNo(),
+//                   customer.getAddress1(),
+//                   customer.getAddress2(),
+//                   customer.getRegion(),
+//                   customer.getDistrict(),
+//                   customer.getPostalCode())).withRel("Update-Your-profile"));
+//
+//           customer.add(linkTo(methodOn(CustomerController.class).removeCustomer(customerId)).withRel("delete-Customers"));
+//
+//           return ResponseEntity.ok(customer);
+//
+//       });
+//
+//        return new ResponseEntity<Optional<Customer>>(customerOptional,HttpStatus.OK);
+//   }
 
 
   @ApiOperation(value = "Register a New Customer")
     @PostMapping(path="/admin/newcustomer")
-    public Object newCustomer(@RequestBody Customer customer){
+  public void newCustomer(@RequestBody Customer customer){
 
-        customerService.addNewCustomer(customer);
-
-        return null;
-    }
+      customerService.addNewCustomer(customer);
+  }
+//    public Object newCustomer(@RequestBody Customer customer){
+//
+//        customerService.addNewCustomer(customer);
+//
+//        return null;
+//    }
 
     @ApiOperation(value = "Update A Customer's Details")
     @PutMapping(path="/admin/updateCustomer/{customerId}")
-    public Object updateCustomerDetails(
+    public void updateCustomerDetails(
             @PathVariable("customerId") Long customerId,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String userName,
@@ -133,26 +147,53 @@ public class CustomerController {
             @RequestParam(required = false) String postalCode){
         customerService.updateCustomer(customerId,
                 email,
-                userName,
-                password,
-                mobileNo,
-                address1,
-                address2,
-                region,
-                district,
-                postalCode);
-
-        return null;
+//                userName,
+                password
+//                mobileNo,
+//                address1,
+//                address2,
+//                region,
+//                district,
+//                postalCode
+        );
     }
+//    public Object updateCustomerDetails(
+//            @PathVariable("customerId") Long customerId,
+//            @RequestParam(required = false) String email,
+//            @RequestParam(required = false) String userName,
+//            @RequestParam(required = false) String password,
+//            @RequestParam(required = false) String mobileNo,
+//            @RequestParam(required = false) String address1,
+//            @RequestParam(required = false) String address2,
+//            @RequestParam(required = false) String region,
+//            @RequestParam(required = false) String district,
+//            @RequestParam(required = false) String postalCode){
+//        customerService.updateCustomer(customerId,
+//                email,
+//                userName,
+//                password,
+//                mobileNo,
+//                address1,
+//                address2,
+//                region,
+//                district,
+//                postalCode);
+//
+//        return null;
+//    }
 
     @ApiOperation(value = "Remove A Customer from the Database")
     @DeleteMapping(path="/admin/deletecustomer/{customerId}")
-    public Object removeCustomer(@PathVariable("customerId")  Long customerId){
+    public void removeCustomer(@PathVariable("customerId")  Long customerId){
 
         customerService.deleteCustomer(customerId);
-
-       return null;
     }
+//    public Object removeCustomer(@PathVariable("customerId")  Long customerId){
+//
+//        customerService.deleteCustomer(customerId);
+//
+//       return null;
+//    }
 }
 
 
