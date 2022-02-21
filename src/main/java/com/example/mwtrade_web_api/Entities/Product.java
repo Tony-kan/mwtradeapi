@@ -44,8 +44,11 @@ public class Product extends RepresentationModel <Product> {
     @ApiModelProperty("Price of the Product")
     private float productPrice;
 
-    @ApiModelProperty("Avarage rating by Customers")
-    private float avgRating;
+    @ApiModelProperty(" rating by Customers")
+    private float rating;
+
+    @ApiModelProperty(" Reviews by Customers")
+    private  Integer reviews;
 
     @ApiModelProperty("Brand Name of the Product")
     private String categoryName;
@@ -100,21 +103,19 @@ public class Product extends RepresentationModel <Product> {
     @OneToMany(mappedBy = "product")
     private List<Cart_Item> cart_item;
 
-    public Product(Long productId) {
-        this.productId = productId;
-    }
 
     public Product( String productName, String shortDescription,
-                    Integer in_Stock,
-                   float avgRating,float productPrice, String categoryName, String mainImage,
-                   String backImage, String sideImage,String topImage, String bottomImage,
-                   String tag1,String tag2,String tag3,
+                    Integer in_Stock,float rating,Integer reviews ,
+                    float productPrice, String categoryName, String mainImage,
+                   String backImage, String sideImage,String topImage,
+                    String bottomImage, String tag1,String tag2,String tag3,
                    Long categoryId, Date created_At, Date modified_at) {
 
         this.productName = productName;
         this.shortDescription = shortDescription;
         this.in_Stock = in_Stock;
-        this.avgRating = avgRating;
+        this.rating = rating;
+        this.reviews=reviews;
         this.productPrice=productPrice;
         this.categoryName = categoryName;
         this.mainImage = mainImage;
@@ -136,7 +137,7 @@ public class Product extends RepresentationModel <Product> {
                 "productName='" + productName + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", in_Stock=" + in_Stock +
-                ", avgRating=" + avgRating +
+                ", avgRating=" + rating +
                 ", brandName='" + categoryName + '\'' +
                 ", mainImage='" + mainImage + '\'' +
                 ", reviewCount=" + categoryId +

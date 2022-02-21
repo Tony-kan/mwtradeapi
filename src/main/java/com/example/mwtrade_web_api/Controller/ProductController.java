@@ -41,8 +41,6 @@ final private ProductService productService;
     )
     @GetMapping
     public List<Product> listProducts(){
-
-
         return productService.getAllProducts();
     }
 //    public ResponseEntity<List<Product>> listProducts(){
@@ -69,6 +67,21 @@ final private ProductService productService;
 //
 //        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 //    }
+
+    @ApiOperation("List popular Products ")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "Successfully retrieved list of popular Products"),
+                    @ApiResponse(code = 401, message = "You are not authorized to view those Products"),
+                    @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+                    @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+            }
+    )
+    @GetMapping(path = "/popular")
+    public List<Product> listPopularProducts(){
+        return productService.getAllPopularProducts();
+    }
+
 
     @ApiOperation("View A Product")
     @ApiResponses(

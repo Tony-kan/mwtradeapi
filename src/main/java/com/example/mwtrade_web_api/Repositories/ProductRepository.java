@@ -25,4 +25,7 @@ public interface ProductRepository
 
     @Query("SELECT p FROM Product p WHERE p.categoryId=?1")
     List<Product> findbyCategoryId (Long categoryId);
+
+    @Query("SELECT p FROM Product p WHERE p.rating>=5.5")
+    List<Product> findPopularProducts();
 }

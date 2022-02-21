@@ -28,6 +28,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> getAllPopularProducts() {
+        return productRepository.findPopularProducts();
+    }
+
+
     public Optional<Product> getViewProduct(Long productId) {
         Optional<Product> productOptional = productRepository.findById(productId);
         return productOptional;
