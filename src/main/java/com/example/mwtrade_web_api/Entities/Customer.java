@@ -13,7 +13,7 @@ import java.util.List;
 @Table
 @Setter
 @Getter
-public class Customer {
+public class Customer extends RepresentationModel<Customer>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,8 +64,8 @@ public class Customer {
 //    @OneToMany(mappedBy = "buyer")
 //    private List<Order_Table> order;
 
-//   @OneToMany(mappedBy = "customer")
-//    private List<Cart_Item> cart_item;
+   @OneToMany(mappedBy = "customer")
+    private List<Cart_Item> cart_item;
 
     public Customer() {
     }

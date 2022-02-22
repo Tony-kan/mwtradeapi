@@ -1,6 +1,8 @@
 package com.example.mwtrade_web_api.Services;
 
 import com.example.mwtrade_web_api.Entities.Cart_Item;
+import com.example.mwtrade_web_api.Entities.Customer;
+import com.example.mwtrade_web_api.Entities.Product;
 import com.example.mwtrade_web_api.Entities.ShoppingCart;
 import com.example.mwtrade_web_api.Repositories.CartItemRepositoy;
 import com.example.mwtrade_web_api.Repositories.CustomerRepository;
@@ -37,18 +39,26 @@ public class CartService {
 
     public void addNewCartItem(Long productId, Integer quantity, Long customerId) {
         ShoppingCart shoppingCart = new ShoppingCart();
+Product product = productRepository.findProductByPId(productId);
+Customer customer = customerRepository.findCustomerById(customerId);
+
         Cart_Item cart_item = new Cart_Item();
         cart_item.setQuantity(quantity);
+        cart_item.setCustomer(customer);
+        cart_item.setProduct(product);
 
-//       cart_item.setProduct(productRepository.findProductByPId(productId));
-//      cart_item.setCustomer(customerRepository.findCustomerByCId(customerId));
-        shoppingCart.getItems().add(cart_item);
-        shoppingCart.setDate(new Date());
+        cartItemRepositoy.save(cart_item);
+
+        shoppingCart.setItems(List.of(cart_item));
         shoppingCartRepository.save(shoppingCart);
+
     }
 
     public List<ShoppingCart> getShoppingCart() {
 
       return   shoppingCartRepository.findAll();
+    }
+    public  List<Cart_Item> getCart_items(){
+        return cartItemRepositoy.findAll();
     }
 }

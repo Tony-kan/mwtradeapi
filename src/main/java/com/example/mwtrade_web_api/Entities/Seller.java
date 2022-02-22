@@ -32,8 +32,8 @@ public class Seller {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="Seller_product",
-    joinColumns = @JoinColumn(name="Product_id",referencedColumnName ="sellerId" ),
-    inverseJoinColumns = @JoinColumn(name="Seller_id",referencedColumnName = "productId"))
+    joinColumns = @JoinColumn(name="id",referencedColumnName ="sellerId" ),
+    inverseJoinColumns = @JoinColumn(name="Seller_id",referencedColumnName = "id"))
     private List<Product> products;
 
 

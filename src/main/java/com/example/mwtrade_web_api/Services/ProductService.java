@@ -78,8 +78,8 @@ public class ProductService {
 //        }
 
         if(productPrice!=0.0 &&
-        !Objects.equals(product.getProductPrice(),productPrice)){
-            product.setProductPrice(productPrice);
+        !Objects.equals(product.getPrice(),productPrice)){
+            product.setPrice(productPrice);
         }
 
         product.setModified_at(new Date());

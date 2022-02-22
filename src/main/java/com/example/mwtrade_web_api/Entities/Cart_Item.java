@@ -1,6 +1,8 @@
 package com.example.mwtrade_web_api.Entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +10,8 @@ import java.util.Date;
 
 @Entity
 @Table
+@Getter
+@Setter
 @AllArgsConstructor
 public class Cart_Item {
 
@@ -25,18 +29,25 @@ public class Cart_Item {
     @Temporal(TemporalType.DATE)
     private Date modified_At;
 
-//@ManyToOne
-//@JoinColumn(name="Customer_id")
-//private Customer customer;
+@ManyToOne
+@JoinColumn(name="Customer_id")
+private Customer customer;
 
 
 @ManyToOne
-@JoinColumn(name="product_Id")
+@JoinColumn(name="id")
    private Product product;
 
 
 
     public Cart_Item() {
+    }
+
+    public Cart_Item(Integer quantity, Customer customer, Product product, Date created_At) {
+        this.quantity = quantity;
+        this.created_At = created_At;
+        this.customer = customer;
+        this.product = product;
     }
 
     public Cart_Item(Integer quantity,
@@ -47,34 +58,6 @@ public class Cart_Item {
         this.price = price;
         this.created_At = created_At;
         this.modified_At = modified_At;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
-    public Long getCartItemId() {
-        return cartItemId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
 

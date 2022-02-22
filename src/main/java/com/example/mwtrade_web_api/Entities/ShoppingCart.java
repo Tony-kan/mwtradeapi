@@ -1,8 +1,6 @@
 package com.example.mwtrade_web_api.Entities;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +10,8 @@ import java.util.List;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 public class ShoppingCart {
     @Id
@@ -38,6 +38,11 @@ public class ShoppingCart {
         this.items = items;
     }
 
+    public ShoppingCart( List<Cart_Item> items,Date date) {
+        this.date = date;
+        this.items = items;
+    }
+
     public ShoppingCart(Date date,
                         Integer itemsNumber,
                         double totalPrice) {
@@ -46,17 +51,7 @@ public class ShoppingCart {
         this.totalPrice = totalPrice;
     }
 
-    public Long getShoppingcartId() {
-        return shoppingcartId;
-    }
 
-    public void setShoppingcartId(Long shopingcartId) {
-        this.shoppingcartId = shopingcartId;
-    }
-
-    public Date getDate() {
-        return date;
-    }
 
     public void setDate(Date date) {
         this.date = date;
@@ -64,7 +59,7 @@ public class ShoppingCart {
     public Double getTotalPrice() {
         Double sum = 0.0;
         for(Cart_Item item : this.items) {
-            sum = sum + item.getProduct().getProductPrice()*item.getQuantity();
+            sum = sum + item.getProduct().getPrice()*item.getQuantity();
         }
         return sum;
     }
@@ -73,11 +68,4 @@ public class ShoppingCart {
     }
 
 
-    public List<Cart_Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Cart_Item> items) {
-        this.items = items;
-    }
 }

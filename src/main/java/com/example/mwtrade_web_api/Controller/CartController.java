@@ -1,5 +1,6 @@
 package com.example.mwtrade_web_api.Controller;
 
+import com.example.mwtrade_web_api.Entities.Cart_Item;
 import com.example.mwtrade_web_api.Entities.ShoppingCart;
 import com.example.mwtrade_web_api.Services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,11 @@ public class CartController {
     public List<ShoppingCart> getShoppingCartList(){
         return cartService.getShoppingCart();
 }
+
+@GetMapping(path="/cartList")
+public  List<Cart_Item> viewCart_itemList() {
+
+    return cartService.getCart_items();
+}
+
 }

@@ -21,8 +21,8 @@ public class Brand {
     private String brandImage;
     private String brandDescription;
 
-    @OneToMany(mappedBy ="brand")
-    private List<Product> products;
+//    @OneToMany(mappedBy ="brand")
+//    private List<Product> products;
 
     public Brand(Long brandId,
                  String brandName,

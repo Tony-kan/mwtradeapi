@@ -30,7 +30,7 @@ public class Product extends RepresentationModel <Product> {
             generator = "product_sequence"
     )
     @ApiModelProperty("The product Id")
-    private Long productId;
+    private Long id;
 
     @ApiModelProperty("The Name of the Product")
     private String productName;
@@ -42,7 +42,7 @@ public class Product extends RepresentationModel <Product> {
     private Integer in_Stock;
 
     @ApiModelProperty("Price of the Product")
-    private float productPrice;
+    private float price;
 
     @ApiModelProperty(" rating by Customers")
     private float rating;
@@ -89,9 +89,9 @@ public class Product extends RepresentationModel <Product> {
     private Date modified_at;
 
 
-    @ManyToOne
-    @JoinColumn(name="Brand_id")
-    private Brand brand;
+//    @ManyToOne
+//    @JoinColumn(name="Brand_id")
+//    private Brand brand;
 
 //    @ManyToOne
 //    @JoinColumn(name="Category_id")
@@ -116,7 +116,7 @@ public class Product extends RepresentationModel <Product> {
         this.in_Stock = in_Stock;
         this.rating = rating;
         this.reviews=reviews;
-        this.productPrice=productPrice;
+        this.price=productPrice;
         this.categoryName = categoryName;
         this.mainImage = mainImage;
         this.backImage = backImage;

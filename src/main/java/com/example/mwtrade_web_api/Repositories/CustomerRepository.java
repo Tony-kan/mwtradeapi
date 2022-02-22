@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +19,10 @@ extends JpaRepository <Customer, Long> {
     Optional<Customer> findByEmail(String email);
 
     @Query("SELECT c FROM Customer c WHERE c.customerId=?1")
-    Customer findCustomerByCId (Long customerId);
+    Customer findCustomerById (Long customerId);
+
+//    @Query("SELECT c.customerId,c.firstName,c.lastName,c.email,c.passWord FROM Customer c")
+//    List<Customer> findAllCustomers();
+
 
 }
